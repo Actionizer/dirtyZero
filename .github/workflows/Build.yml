@@ -19,6 +19,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dirtyZero
-          path: 
+          path: dirtyZero.ipa
           retention-days: 240
           
