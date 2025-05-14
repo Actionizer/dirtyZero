@@ -1,6 +1,8 @@
 name: Build and upload the artifact
 on: 
   workflow_dispatch:
+  push:
+    branches: [ 0.3.75 ]
 
 jobs:
   build:
