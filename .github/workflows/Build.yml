@@ -1,0 +1,31 @@
+name: Build and upload the artifact
+on: 
+  workflow_dispatch:
+  push:
+    branches: [ 0.3.75 ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Allow the script to run
+        run: |
+          cd ${{GITHUB.WORKSPACE}}
+          chmod +x ./ipabuild.sh
+
+      - name: Build IPA
+        run: |
+          cd ${{GITHUB.WORKSPACE}}
+          ./ipabuild.sh
+
+      - name: Upload artifak
+        uses: actions/upload-artifact@v4
+        with:
+          name: dirtyZero
+          path: dirtyZero.ipa
+          retention-days: 240
+          # lel

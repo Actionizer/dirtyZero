@@ -8,7 +8,7 @@ struct LogView: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollViewReader { proxy in
-                ScrollView(showsIndicators: false) {
+                ScrollView {
                     Text(log)
                         .font(.system(size: 10, weight: .regular, design: .monospaced))
                         .multilineTextAlignment(.leading)

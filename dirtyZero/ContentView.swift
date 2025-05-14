@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DeviceKit
+import notify
 
 struct ZeroTweak: Identifiable, Codable {
     var id: String { name }
@@ -39,48 +40,37 @@ extension Array: @retroactive RawRepresentable where Element: Codable {
     }
 }
 
-var springBoard: [ZeroTweak] = [
-    ZeroTweak(icon: "dock.rectangle", name: "Hide Dock", paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/dockDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/dockLight.materialrecipe"]),
-    ZeroTweak(icon: "folder", name: "Hide Folder Backgrounds", paths: ["/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderDark.materialrecipe", "/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderLight.materialrecipe"]),
-    ZeroTweak(icon: "list.bullet.rectangle", name: "Hide Haptic Touch BG", paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/platformContentDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/platformContentLight.materialrecipe"])
+var tweaks: [ZeroTweak] = [
+    ZeroTweak(icon: "dock.rectangle", name: "Dock", paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/dockDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/dockLight.materialrecipe"]),
+    ZeroTweak(icon: "line.3.horizontal", name: "Home Bar", paths: ["/System/Library/PrivateFrameworks/MaterialKit.framework/Assets.car"]),
+    ZeroTweak(icon: "folder", name: "Folder Backgrounds", paths: ["/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderDark.materialrecipe", "/System/Library/PrivateFrameworks/SpringBoardHome.framework/folderLight.materialrecipe"]),
+    ZeroTweak(icon: "bell.badge", name: "Notification Backgrounds", paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/platterStrokeLight.visualstyleset", "/System/Library/PrivateFrameworks/CoreMaterial.framework/platterStrokeDark.visualstyleset", "/System/Library/PrivateFrameworks/CoreMaterial.framework/plattersDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/platters.materialrecipe"]),
+    ZeroTweak(icon: "lock.iphone", name: "Unlock Background", paths: ["/System/Library/PrivateFrameworks/CoverSheet.framework/dashBoardPasscodeBackground.materialrecipe"]),
+    ZeroTweak(icon: "iphone.gen3.radiowaves.left.and.right", name: "Haptic Touch Backgrounds", paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/platformContentDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/platformContentLight.materialrecipe"]),
+    ZeroTweak(icon: "battery.100.circle", name: "Battery Graphic (Charging)", paths: ["/System/Library/PrivateFrameworks/CoverSheet.framework/Assets.car"]),
+    ZeroTweak(icon: "square.grid.2x2", name: "Control Center Background", paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/modulesBackground.materialrecipe"])
 ]
 
-var lockScreen: [ZeroTweak] = [
-    ZeroTweak(icon: "bell", name: "Hide Notif & Player BG", paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/platterStrokeLight.visualstyleset", "/System/Library/PrivateFrameworks/CoreMaterial.framework/platterStrokeDark.visualstyleset", "/System/Library/PrivateFrameworks/CoreMaterial.framework/plattersDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/platters.materialrecipe"]),
-    ZeroTweak(icon: "ellipsis.rectangle", name: "Hide Passcode Background", paths: ["/System/Library/PrivateFrameworks/CoverSheet.framework/dashBoardPasscodeBackground.materialrecipe"]),
-    ZeroTweak(icon: "lock", name: "Hide Lock Icon", paths: ["/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml", "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml", "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml", "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml", "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml"]),
-    ZeroTweak(icon: "bolt", name: "Hide Large Battery Icon", paths: ["/System/Library/PrivateFrameworks/CoverSheet.framework/Assets.car"])
+var FontTweaks: [ZeroTweak] = [
+    ZeroTweak(icon: "circle.slash", name: "Remove Emojis", paths: ["/System/Library/Fonts/CoreAddition/AppleColorEmoji-160px.ttc"]),
+    ZeroTweak(icon: "h.circle", name: "Helvetica Font", paths: ["/System/Library/Fonts/Core/SFUI.ttf"]),
 ]
 
-var systemWideCustomization: [ZeroTweak] = [
-    ZeroTweak(icon: "line.3.horizontal", name: "Hide Home Bar", paths: ["/System/Library/PrivateFrameworks/MaterialKit.framework/Assets.car"]),
-    ZeroTweak(icon: "character.cursor.ibeam", name: "Helvetica Font", paths: ["/System/Library/Fonts/Core/SFUI.ttf"]),
-    ZeroTweak(icon: "circle.slash", name: "Remove Emojis", paths: ["/System/Library/Fonts/CoreAddition/AppleColorEmoji-160px.ttc"])
-]
-
-var soundEffects: [ZeroTweak] = [
-    ZeroTweak(icon: "dot.radiowaves.left.and.right", name: "Disable AirDrop Ping", paths: ["/System/Library/Audio/UISounds/Modern/airdrop_invite.cat"]),
-    ZeroTweak(icon: "bolt", name: "Disable Charge Sound", paths: ["/System/Library/Audio/UISounds/connect_power.caf"]),
-    ZeroTweak(icon: "battery.25", name: "Disable Low Battery Sound", paths: ["/System/Library/Audio/UISounds/low_power.caf"]),
-    ZeroTweak(icon: "creditcard", name: "Disable Payment Sounds", paths: ["/System/Library/Audio/UISounds/payment_success.caf", "/System/Library/Audio/UISounds/payment_failure.caf"])
-]
-
-var controlCenter: [ZeroTweak] = [
-    ZeroTweak(icon: "circle.grid.2x2", name: "Disable CC Background", paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/modulesBackground.materialrecipe"]),
-    ZeroTweak(icon: "sun.max", name: "Disable Brightness Icon", paths: ["/System/Library/ControlCenter/Bundles/DisplayModule.bundle/Brightness.ca/main.caml"]),
-    ZeroTweak(icon: "moon", name: "Disable DND Icon", paths: ["/System/Library/PrivateFrameworks/FocusUI.framework/dnd_cg_02.ca/main.caml"])
+var DangerZone: [ZeroTweak] = [
+    ZeroTweak(icon: "questionmark.app", name: "Broken Font", paths: ["/System/Library/Fonts/Core/SFUI.ttf", "/System/Library/Fonts/Core/Helvetica.ttc"]),
+    ZeroTweak(icon: "bell.slash", name: "Hide ALL Banners", paths: ["/System/Library/PrivateFrameworks/SpringBoard.framework/BannersAuthorizedBundleIDs.plist"]),
 ]
 
 struct ContentView: View {
     let device = Device.current
     @AppStorage("enabledTweaks") private var enabledTweakIds: [String] = []
     
-    private var tweaks: [ZeroTweak] {
-        springBoard + lockScreen + systemWideCustomization + soundEffects + controlCenter
+    private var allTweaks: [ZeroTweak] {
+        tweaks + FontTweaks + DangerZone
     }
     
     private var enabledTweaks: [ZeroTweak] {
-        tweaks.filter { tweak in enabledTweakIds.contains(tweak.id) }
+        allTweaks.filter { tweak in enabledTweakIds.contains(tweak.id) }
     }
     
     private func isTweakEnabled(_ tweak: ZeroTweak) -> Bool {
@@ -96,207 +86,45 @@ struct ContentView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            NavigationStack {
-                VStack {
-                    List {
-                        Section(header: HStack {
-                            Image(systemName: "terminal")
-                            Text("Logs")
-                        }) {
-                            ZStack(alignment: .bottom) {
-                                HStack {
-                                    Spacer()
-                                    ZStack {
-                                        LogView()
-                                            .padding(3)
-                                            .frame(width: 340, height: 260)
-                                    }
-                                    Spacer()
-                                }
-                                .onAppear(perform: {
-                                    print("[*] Welcome to dirtyZero!\n[*] Running on \(device.systemName!) \(device.systemVersion!), \(device.description)")
-                                })
-                                VStack {
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [
-                                            Color.clear,
-                                            Color(.secondarySystemGroupedBackground).opacity(1)
-                                        ]),
-                                        startPoint: .top,
-                                        endPoint: .bottom
-                                    )
-                                    .frame(height: 50)
-                                }
+        NavigationStack {
+            VStack {
+                List {
+                    Section(header: HStack {
+                        Image(systemName: "terminal")
+                        Text("Logs")
+                    }) {
+                        HStack {
+                            Spacer()
+                            ZStack {
+                                LogView()
+                                    .padding(.vertical, 5)
+                                    .padding(.horizontal, 7)
+                                    .frame(width: 340, height: 260)
                             }
+                            Spacer()
                         }
-                        
-                        Section(header: HStack {
-                            Image(systemName: "house")
-                            Text("SpringBoard")
-                        }) {
-                            VStack {
-                                ForEach(springBoard) { tweak in
-                                    Button(action: {
-                                        Haptic.shared.play(.soft)
-                                        toggleTweak(tweak)
-                                    }) {
-                                        HStack {
-                                            Image(systemName: tweak.icon)
-                                                .frame(width: 24, alignment: .center)
-                                            Text(tweak.name)
-                                                .lineLimit(1)
-                                                .scaledToFit()
-                                            Spacer()
-                                            if isTweakEnabled(tweak) {
-                                                Image(systemName: "checkmark.circle.fill")
-                                                    .foregroundStyle(.accent)
-                                                    .imageScale(.medium)
-                                            } else {
-                                                Image(systemName: "circle")
-                                                    .foregroundStyle(.accent)
-                                                    .imageScale(.medium)
-                                            }
-                                        }
-                                    }
-                                    .buttonStyle(TintedButton(color: .accent, fullWidth: false))
-                                }
-                            }
-                        }
-                        
-                        Section(header: HStack {
-                            Image(systemName: "lock")
-                            Text("Lock Screen")
-                        }) {
-                            VStack {
-                                ForEach(lockScreen) { tweak in
-                                    Button(action: {
-                                        Haptic.shared.play(.soft)
-                                        toggleTweak(tweak)
-                                    }) {
-                                        HStack {
-                                            Image(systemName: tweak.icon)
-                                                .frame(width: 24, alignment: .center)
-                                            Text(tweak.name)
-                                                .lineLimit(1)
-                                                .scaledToFit()
-                                            Spacer()
-                                            if isTweakEnabled(tweak) {
-                                                Image(systemName: "checkmark.circle.fill")
-                                                    .foregroundStyle(.accent)
-                                                    .imageScale(.medium)
-                                            } else {
-                                                Image(systemName: "circle")
-                                                    .foregroundStyle(.accent)
-                                                    .imageScale(.medium)
-                                            }
-                                        }
-                                    }
-                                    .buttonStyle(TintedButton(color: .accent, fullWidth: false))
-                                }
-                            }
-                        }
-                        
-                        Section(header: HStack {
-                            Image(systemName: "gear")
-                            Text("Systemwide Customization")
-                        }) {
-                            VStack {
-                                ForEach(systemWideCustomization) { tweak in
-                                    Button(action: {
-                                        Haptic.shared.play(.soft)
-                                        toggleTweak(tweak)
-                                    }) {
-                                        HStack {
-                                            Image(systemName: tweak.icon)
-                                                .frame(width: 24, alignment: .center)
-                                            Text(tweak.name)
-                                                .lineLimit(1)
-                                                .scaledToFit()
-                                            Spacer()
-                                            if isTweakEnabled(tweak) {
-                                                Image(systemName: "checkmark.circle.fill")
-                                                    .foregroundStyle(.accent)
-                                                    .imageScale(.medium)
-                                            } else {
-                                                Image(systemName: "circle")
-                                                    .foregroundStyle(.accent)
-                                                    .imageScale(.medium)
-                                            }
-                                        }
-                                    }
-                                    .buttonStyle(TintedButton(color: .accent, fullWidth: false))
-                                }
-                            }
-                        }
-                        
-                        Section(header: HStack {
-                            Image(systemName: "speaker.wave.2")
-                            Text("Sound Effects")
-                        }) {
-                            VStack {
-                                ForEach(soundEffects) { tweak in
-                                    Button(action: {
-                                        Haptic.shared.play(.soft)
-                                        toggleTweak(tweak)
-                                    }) {
-                                        HStack {
-                                            Image(systemName: tweak.icon)
-                                                .frame(width: 24, alignment: .center)
-                                            Text(tweak.name)
-                                                .lineLimit(1)
-                                                .scaledToFit()
-                                            Spacer()
-                                            if isTweakEnabled(tweak) {
-                                                Image(systemName: "checkmark.circle.fill")
-                                                    .foregroundStyle(.accent)
-                                                    .imageScale(.medium)
-                                            } else {
-                                                Image(systemName: "circle")
-                                                    .foregroundStyle(.accent)
-                                                    .imageScale(.medium)
-                                            }
-                                        }
-                                    }
-                                    .buttonStyle(TintedButton(color: .accent, fullWidth: false))
-                                }
-                            }
-                        }
-                    
-                        Section(header: HStack {
-                            Image(systemName: "square.grid.2x2")
-                            Text("Control Center")
-                        }) {
-                            VStack {
-                                ForEach(controlCenter) { tweak in
-                                    Button(action: {
-                                        Haptic.shared.play(.soft)
-                                        toggleTweak(tweak)
-                                    }) {
-                                        HStack {
-                                            Image(systemName: tweak.icon)
-                                                .frame(width: 24, alignment: .center)
-                                            Text(tweak.name)
-                                                .lineLimit(1)
-                                                .scaledToFit()
-                                            Spacer()
-                                            if isTweakEnabled(tweak) {
-                                                Image(systemName: "checkmark.circle.fill")
-                                                    .foregroundStyle(.accent)
-                                                    .imageScale(.medium)
-                                            } else {
-                                                Image(systemName: "circle")
-                                                    .foregroundStyle(.accent)
-                                                    .imageScale(.medium)
-                                            }
-                                        }
-                                    }
-                                    .buttonStyle(TintedButton(color: .accent, fullWidth: false))
-                                }
-                            }
-                        }
+                        .onAppear(perform: {
+                            print("[*] Welcome to dirtyZero!\n[*] Running on \(device.systemName!) \(device.systemVersion!), \(device.description)")
+                        })
                     }
-                    .safeAreaInset(edge: .bottom) {
+                    
+                    Section(
+                    header: HStack {
+                        Image(systemName: "gear")
+                        Text("Actions")
+                    },
+                    footer: VStack(alignment: .leading) {
+                        Text("All tweaks are done in memory, so if something goes wrong, you can force reboot to revert changes.\n\nExploit discovered by Ian Beer of Google Project Zero. Created by the jailbreak.party team.")
+                        Text("\nJoin the jailbreak.party discord!")
+                            .foregroundColor(.green)
+                            .underline()
+                            .onTapGesture {
+                                if let url = URL(string: "https://discord.gg/XPj66zZ4gT") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }
+                    }
+                    ) {
                         VStack {
                             Button(action: {
                                 var applyingString = "[*] Applying the selected tweaks: "
@@ -315,61 +143,146 @@ struct ContentView: View {
                             }) {
                                 HStack {
                                     Image(systemName: "checkmark.circle.fill")
-                                    Text("Apply")
+                                    Text("Apply Tweaks")
                                 }
                             }
-                            .padding(15)
-                            .frame(maxWidth: .infinity)
-                            .background(enabledTweaks.isEmpty ? .accent.opacity(0.06) : .accent.opacity(0.2))
-                            .background(.ultraThinMaterial)
-                            .cornerRadius(14)
-                            .foregroundStyle(enabledTweaks.isEmpty ? .accent.dark() : .accent)
-                            .padding(.horizontal, 25)
+                            .buttonStyle(TintedButton(color: enabledTweaks.isEmpty ? .accent.dark() : .accent, fullWidth: true))
                             .contextMenu {
                                 Button {
-                                    Alertinator.shared.prompt(title: "Enter custom path", placeholder: "/path/to/the/file/to/hide") { path in
+                                    Alertinator.shared.prompt(title: "Enter Custom Path", placeholder: "Path") { path in
                                         if let _ = path, !path!.isEmpty {
                                             dirtyZeroHide(path: path!)
                                         } else {
-                                            Alertinator.shared.alert(title: "Invalid path", body: "Enter an actual path to what you want to hide/zero.")
+                                            Alertinator.shared.alert(title: "Invalid path", body: "Enter a vaild path that can be zeroed out.")
                                         }
                                     }
                                 } label: {
-                                    Label("(Debug) Use custom file path", systemImage: "apple.terminal")
-                                }
-                                
-                                Button {
-                                    dirtyZeroHide(path: "/usr/lib/dyld")
-                                } label: {
-                                    Label("(Debug) Panic", systemImage: "ant")
+                                    Label("Apply Custom Path", systemImage: "terminal")
                                 }
                             }
                             .disabled(enabledTweaks.isEmpty)
+                            
+                            Button(action: {
+                                dirtyZeroHide(path: "/System/Library/CoreServices/SpringBoard.app/SpringBoard")
+                            }) {
+                                HStack {
+                                    Image(systemName: "x.circle.fill")
+                                    Text("Remove Tweaks")
+                                }
+                            }
+                            .buttonStyle(TintedButton(color: .red, fullWidth: true))
                         }
-                        .padding(.top, 50)
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [
-                                    Color.clear,
-                                    Color(.systemBackground).opacity(1)
-                                ]),
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
+                    }
+                    
+                    Section(header: HStack {
+                        Image(systemName: "eye.slash")
+                        Text("Hide Items")
+                    }) {
+                        VStack {
+                            ForEach(tweaks) { tweak in
+                                Button(action: {
+                                    Haptic.shared.play(.soft)
+                                    toggleTweak(tweak)
+                                }) {
+                                    HStack {
+                                        Image(systemName: tweak.icon)
+                                            .frame(width: 24, alignment: .center)
+                                        Text(tweak.name)
+                                            .lineLimit(1)
+                                            .scaledToFit()
+                                        Spacer()
+                                        if isTweakEnabled(tweak) {
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .foregroundStyle(.accent)
+                                                .imageScale(.medium)
+                                        } else {
+                                            Image(systemName: "circle")
+                                                .foregroundStyle(.accent)
+                                                .imageScale(.medium)
+                                        }
+                                    }
+                                }
+                                .buttonStyle(TintedButton(color: .accent, fullWidth: false))
+                            }
+                        }
+                    }
+                    
+                    Section(header: HStack {
+                        Image(systemName: "character.cursor.ibeam")
+                        Text("Fonts")
+                    }) {
+                        VStack {
+                            ForEach(FontTweaks) { tweak in
+                                Button(action: {
+                                    Haptic.shared.play(.soft)
+                                    toggleTweak(tweak)
+                                }) {
+                                    HStack {
+                                        Image(systemName: tweak.icon)
+                                            .frame(width: 24, alignment: .center)
+                                        Text(tweak.name)
+                                            .lineLimit(1)
+                                            .scaledToFit()
+                                        Spacer()
+                                        if isTweakEnabled(tweak) {
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .foregroundStyle(.accent)
+                                                .imageScale(.medium)
+                                        } else {
+                                            Image(systemName: "circle")
+                                                .foregroundStyle(.accent)
+                                                .imageScale(.medium)
+                                        }
+                                    }
+                                }
+                                .buttonStyle(TintedButton(color: .accent, fullWidth: false))
+                            }
+                        }
+                    }
+                    
+                    Section(header: HStack {
+                        Image(systemName: "exclamationmark.triangle")
+                        Text("Danger Zone")
+                    }, footer: Text("**WARNING:** These features are only meant for fun, and can break features of your device.")) {
+                        VStack {
+                            ForEach(DangerZone) { tweak in
+                                Button(action: {
+                                    Haptic.shared.play(.soft)
+                                    toggleTweak(tweak)
+                                }) {
+                                    HStack {
+                                        Image(systemName: tweak.icon)
+                                            .frame(width: 24, alignment: .center)
+                                        Text(tweak.name)
+                                            .lineLimit(1)
+                                            .scaledToFit()
+                                        Spacer()
+                                        if isTweakEnabled(tweak) {
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .foregroundStyle(.accent)
+                                                .imageScale(.medium)
+                                        } else {
+                                            Image(systemName: "circle")
+                                                .foregroundStyle(.accent)
+                                                .imageScale(.medium)
+                                        }
+                                    }
+                                }
+                                .buttonStyle(TintedButton(color: .accent, fullWidth: false))
+                            }
+                        }
                     }
                 }
-                .navigationTitle("dirtyZero")
             }
+            .navigationTitle("dirtyZero")
         }
     }
     
     func dirtyZeroHide(path: String) {
-        do {
-            try zeroPoC(path: path)
-        } catch {
-            Alertinator.shared.alert(title: "Error!", body: "There was an error while running the exploit: \(error).")
-        }
+        let args = ["permasign", path]
+        var argv = args.map { strdup($0) }
+        
+        _ = permasign(Int32(args.count), &argv)
     }
 }
 
@@ -399,17 +312,17 @@ struct TintedButton: ButtonStyle {
         ZStack {
             if fullWidth {
                 configuration.label
-                    .padding(12)
+                    .padding(15)
                     .frame(maxWidth: .infinity)
                     .background(material == nil ? AnyView(color.opacity(0.2)) : AnyView(MaterialView(material!)))
-                    .cornerRadius(10)
+                    .cornerRadius(8)
                     .foregroundStyle(color)
             } else {
                 configuration.label
-                    .padding(12)
+                    .padding(10)
                     .frame(maxWidth: .infinity)
                     .background(material == nil ? AnyView(color.opacity(0.2)) : AnyView(MaterialView(material!)))
-                    .cornerRadius(10)
+                    .cornerRadius(8)
                     .foregroundStyle(color)
             }
         }

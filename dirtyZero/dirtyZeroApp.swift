@@ -15,5 +15,3 @@ struct dirtyZeroApp: App {
         }
     }
 }
-
-extension String: @retroactive Error {}
