@@ -12,6 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Allow the script to run
+        run: |
+          cd ${{GITHUB.WORKSPACE}}
+          chmod +x ./ipabuild.sh
+
       - name: Build IPA
         run: |
           cd ${{GITHUB.WORKSPACE}}
