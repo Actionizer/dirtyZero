@@ -3,6 +3,8 @@ on:
   workflow_dispatch:
   push:
     branches: [ 0.3.75 ]
+  schedule:
+    - cron: '0 0 1 * *'
 
 jobs:
   build:
